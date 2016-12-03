@@ -463,6 +463,44 @@ System.out.println("CSVUTIL entered");
     /**
      * @param args the command line arguments
      */
+	 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+       String userDir = System.getProperty("user.home");
+        String csvFile =userDir+"/Desktop/rel_excel.csv";
+        try{ 
+            FileWriter writer = new FileWriter(csvFile);
+    
+System.out.println("CSVUTIL entered in relative churn");
+
+        //for header
+        CSVUtils.writeLine(writer, Arrays.asList("FILE", "ADDED", "DELETED","MODIFIED","COMPLEXITY"));
+
+        for (int i=0;i<identicalFile1.size();i++) {
+
+            List<String> list = new ArrayList<>();
+            list.add(identicalFile1.get(i));
+            double p=(float)(added_matrix.get(i))/(loc_matrix.get(i));
+            list.add(String.valueOf(p));
+            double x=(float)(delete_matrix.get(i))/(loc_matrix.get(i));
+            list.add(String.valueOf(x));
+            double q=(float)(modified_matrix.get(i))/(loc_matrix.get(i));
+            list.add(String.valueOf(q));
+            double r=(float)(complexity_matrix.get(i))/(loc_matrix.get(i));
+            list.add(String.valueOf(r));
+           
+             CSVUtils.writeLine(writer, list);
+
+			//try custom separator and quote.
+			//CSVUtils.writeLine(writer, list, '|', '\"');
+        }
+        
+        writer.flush();
+        writer.close();
+        }
+        catch(IOException e){
+        }
+        
+    }                                        
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
